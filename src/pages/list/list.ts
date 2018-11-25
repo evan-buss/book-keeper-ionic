@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { AngularFirestore } from "@angular/fire/firestore";
 
 /**
  * Generated class for the ListPage page.
@@ -18,6 +19,8 @@ export class ListPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.selectedList = navParams.get("list");
+    // console.log(db.collection(this.selectedList.name));
+
     console.log(this.selectedList);
   }
 

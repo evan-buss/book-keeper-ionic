@@ -4,19 +4,28 @@
 
 <ion-content>
   <ion-list>
-    <ion-list-header>Book List</ion-list-header>
+    <ion-list-header>
+      <div item-left>Lists</div>
+      <div item-right>Last Updated</div>
+    </ion-list-header>
+    <!--
+      <ul>
+        <li class="text" *ngFor="let item of (items | async)">{{ item.name }}</li>
+      </ul>
+    -->
+
     <button
       ion-item
-      *ngFor="let list of lists"
+      *ngFor="let list of (lists | async)"
       (click)="itemTapped($event, list)"
     >
       <ion-icon name="book" item-start></ion-icon>
       {{ list.name }}
-      <div item-right>{{ list.lastModified.toLocaleDateString() }}</div>
+      <div item-right padding>{{ list.lastModified }}</div>
     </button>
   </ion-list>
   <ion-fab bottom right>
-    <button ion-fab color-primary>
+    <button (click)="createList($event)" ion-fab color-primary>
       <ion-icon name="add" item-start></ion-icon>
     </button>
   </ion-fab>
