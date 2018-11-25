@@ -1,5 +1,6 @@
 {
   "name": "book-keeper",
   "integrations": {},
-  "type": "ionic-angular"
+  "type": "ionic-angular",
+  "pro_id": "e89a75ba"
 }
