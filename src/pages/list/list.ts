@@ -1,13 +1,9 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { AngularFirestore } from "@angular/fire/firestore";
+import { Observable } from "rxjs-compat";
 
-/**
- * Generated class for the ListPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { DetailsPage } from "../details/details";
 
 @IonicPage()
 @Component({
@@ -15,16 +11,38 @@ import { AngularFirestore } from "@angular/fire/firestore";
   templateUrl: "list.html"
 })
 export class ListPage {
-  public selectedList: any;
+  public listName: string;
+  public books: Observable<any>;
+  public bookListRef: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.selectedList = navParams.get("list");
-    // console.log(db.collection(this.selectedList.name));
-
-    console.log(this.selectedList);
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public db: AngularFirestore
+  ) {
+    this.listName = navParams.get("list").name;
+    this.bookListRef = this.db
+      .collection("book-lists")
+      .doc(this.listName)
+      .collection("books");
+    this.books = this.bookListRef.valueChanges();
   }
 
-  ionViewDidLoad() {
-    console.log("ionViewDidLoad ListPage");
+  addBook(event) {
+    this.navCtrl.push(DetailsPage, {
+      listName: this.listName,
+      title: "Add a Book"
+    });
+
+    // console.log("Book create event here");
+    // this.bookListRef.add({
+    //   title: "Book Title",
+    //   author: "Book Author",
+    //   dateAdded: new Date().toLocaleDateString()
+    // });
   }
+
+  // ionViewDidLoad() {
+  //   console.log("ionViewDidLoad ListPage");
+  // }
 }

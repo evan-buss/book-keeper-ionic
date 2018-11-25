@@ -13,12 +13,21 @@ import { HomePage } from "../pages/home/home";
 import { TabsPage } from "../pages/tabs/tabs";
 import { BookListPage } from "../pages/booklist/booklist";
 import { ListPage } from "../pages/list/list";
+import { DetailsPage } from "../pages/details/details";
 
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 
 @NgModule({
-  declarations: [MyApp, AboutPage, HomePage, TabsPage, BookListPage, ListPage],
+  declarations: [
+    MyApp,
+    AboutPage,
+    HomePage,
+    TabsPage,
+    BookListPage,
+    ListPage,
+    DetailsPage
+  ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
@@ -32,7 +41,8 @@ import { SplashScreen } from "@ionic-native/splash-screen";
     HomePage,
     TabsPage,
     BookListPage,
-    ListPage
+    ListPage,
+    DetailsPage
   ],
   providers: [
     StatusBar,

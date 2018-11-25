@@ -4,7 +4,6 @@ import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 
 import { TabsPage } from "../pages/tabs/tabs";
-import { Observable } from "rxjs";
 
 @Component({
   templateUrl: "app.html"
@@ -12,7 +11,6 @@ import { Observable } from "rxjs";
 export class MyApp {
   rootPage: any = TabsPage;
   public globalString: String = "Test String :)";
-  items: Observable<any>;
 
   constructor(
     platform: Platform,

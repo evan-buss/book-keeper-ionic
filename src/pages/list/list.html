@@ -1,7 +1,19 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>{{ selectedList.name }}</ion-title>
+    <ion-title>{{ listName }}</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding> </ion-content>
+<ion-content padding>
+  <ion-list>
+    <ion-list-header> Books </ion-list-header>
+    <button ion-item *ngFor="let book of (books | async)">
+      {{ book.title }}
+    </button>
+  </ion-list>
+  <ion-fab bottom right>
+    <button (click)="addBook($event)" ion-fab color-primary>
+      <ion-icon name="add" item-start></ion-icon>
+    </button>
+  </ion-fab>
+</ion-content>

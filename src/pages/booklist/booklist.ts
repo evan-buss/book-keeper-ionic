@@ -1,48 +1,44 @@
-import { Component } from "@angular/core";
+import { Component, ViewChild } from "@angular/core";
 import { NavController } from "ionic-angular";
 import { ListPage } from "../list/list";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { Observable } from "rxjs-compat";
-import { firestore } from "firebase";
+
 @Component({
   selector: "page-booklist",
   templateUrl: "booklist.html"
 })
 export class BookListPage {
-  // lists: Array<{ name: string; lastModified: Date }> = [
-  //   {
-  //     name: "To-Read",
-  //     lastModified: new Date()
-  //   },
-  //   {
-  //     name: "Currently-Reading",
-  //     lastModified: new Date()
-  //   },
-  //   {
-  //     name: "Completed",
-  //     lastModified: new Date()
-  //   }
-  // ];
+  @ViewChild("newListInput") newListInput;
 
   lists: Observable<any>;
   fireStore: AngularFirestore;
   bookListCollection: any;
+  listName: String;
+  inputVisible: boolean = false;
 
   constructor(public navCtrl: NavController, db: AngularFirestore) {
     this.fireStore = db;
-    // this.lists = db.collection("to-read").valueChanges();
-    // this.lists = db.collection("book-lists").valueChanges();
-    // this.lists = db.collection("book-lists").snapshotChanges();
     this.lists = db.collection<any>("book-lists").valueChanges();
     console.log("Lists: " + this.lists);
   }
 
   createList(event) {
-    this.bookListCollection = this.fireStore.collection("book-lists");
-    this.bookListCollection.add({
-      name: "list_name",
-      lastModified: new Date().toLocaleDateString()
-    });
+    if (this.inputVisible == false) {
+      this.inputVisible = true;
+      setTimeout(() => {
+        this.newListInput.setFocus();
+      }, 150); //a least 150ms.
+    } else if (this.inputVisible == true) {
+      this.bookListCollection = this.fireStore.collection("book-lists");
+
+      this.bookListCollection.doc(this.listName).set({
+        name: this.listName,
+        lastModified: new Date().toLocaleDateString()
+      });
+      this.listName = "";
+      this.inputVisible = false;
+    }
   }
 
   itemTapped(event, list) {

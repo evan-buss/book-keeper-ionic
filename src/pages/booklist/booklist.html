@@ -2,18 +2,12 @@
   <ion-navbar> <ion-title> Your Book Lists </ion-title> </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content padding>
   <ion-list>
     <ion-list-header>
       <div item-left>Lists</div>
       <div item-right>Last Updated</div>
     </ion-list-header>
-    <!--
-      <ul>
-        <li class="text" *ngFor="let item of (items | async)">{{ item.name }}</li>
-      </ul>
-    -->
-
     <button
       ion-item
       *ngFor="let list of (lists | async)"
@@ -23,6 +17,18 @@
       {{ list.name }}
       <div item-right padding>{{ list.lastModified }}</div>
     </button>
+    <ion-item *ngIf="inputVisible">
+      <ion-label fixed>List Name</ion-label>
+      <ion-input
+        #newListInput
+        clearInput
+        clearOnEdit
+        type="text"
+        value=""
+        [(ngModel)]="listName"
+        (keydown.enter)="createList($event)"
+      ></ion-input>
+    </ion-item>
   </ion-list>
   <ion-fab bottom right>
     <button (click)="createList($event)" ion-fab color-primary>
