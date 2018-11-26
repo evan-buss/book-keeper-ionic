@@ -2,8 +2,7 @@ import { Component, ViewChild } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
 import {
   AngularFirestore,
-  AngularFirestoreCollection,
-  AngularFirestoreDocument
+  AngularFirestoreCollection
 } from "@angular/fire/firestore";
 import { AlertController } from "ionic-angular";
 
