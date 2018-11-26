@@ -4,37 +4,33 @@
 
 <ion-content>
   <ion-list>
-    <!--
-      <ion-list-header>
-        <div item-left>Lists</div>
-        <div item-right>Last Updated</div>
-      </ion-list-header>
-    -->
     <ion-item-divider color="light">
       <div item-left>Lists</div>
       <div item-right>Last Updated</div>
     </ion-item-divider>
-    <button
-      ion-item
-      *ngFor="let list of (lists | async)"
-      (click)="itemTapped($event, list)"
-    >
-      <ion-icon name="book" item-start></ion-icon>
-      {{ list.name }}
-      <div item-right padding>{{ list.lastModified }}</div>
-    </button>
-    <ion-item *ngIf="inputVisible">
-      <ion-label fixed>List Name</ion-label>
-      <ion-input
-        #newListInput
-        clearInput
-        clearOnEdit
-        type="text"
-        value=""
-        [(ngModel)]="listName"
-        (keydown.enter)="createList($event)"
-      ></ion-input>
-    </ion-item>
+    <ion-item-group>
+      <button
+        ion-item
+        *ngFor="let list of (lists | async)"
+        (click)="itemTapped($event, list)"
+      >
+        <ion-icon name="book" item-start></ion-icon>
+        {{ list.name }}
+        <div item-right padding>{{ list.lastModified }}</div>
+      </button>
+      <ion-item *ngIf="inputVisible">
+        <ion-label fixed>List Name</ion-label>
+        <ion-input
+          #newListInput
+          clearInput
+          clearOnEdit
+          type="text"
+          value=""
+          [(ngModel)]="listName"
+          (keydown.enter)="createList($event)"
+        ></ion-input>
+      </ion-item>
+    </ion-item-group>
   </ion-list>
   <ion-fab bottom right>
     <button (click)="createList($event)" ion-fab color-primary>

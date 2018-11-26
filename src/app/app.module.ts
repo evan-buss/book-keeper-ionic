@@ -5,6 +5,7 @@ import { MyApp } from "./app.component";
 // Firebase
 import { AngularFireModule } from "@angular/fire";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
+import { AngularFireStorageModule } from "@angular/fire/storage";
 // import { AngularFireStorageModule } from "@angular/fire/storage";
 import { firebaseConfig } from "../environments/environment";
 
@@ -17,6 +18,7 @@ import { DetailsPage } from "../pages/details/details";
 
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
+import { Camera } from "@ionic-native/camera";
 
 @NgModule({
   declarations: [
@@ -32,6 +34,7 @@ import { SplashScreen } from "@ionic-native/splash-screen";
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirestoreModule,
     AngularFirestoreModule
   ],
   bootstrap: [IonicApp],
@@ -47,6 +50,7 @@ import { SplashScreen } from "@ionic-native/splash-screen";
   providers: [
     StatusBar,
     SplashScreen,
+    Camera,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

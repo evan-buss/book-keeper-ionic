@@ -2,10 +2,11 @@ import { Component, ViewChild } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
 import {
   AngularFirestore,
-  AngularFirestoreCollection,
-  AngularFirestoreDocument
+  AngularFirestoreCollection
 } from "@angular/fire/firestore";
 import { AlertController } from "ionic-angular";
+import { Camera } from "@ionic-native/camera";
+import { AngularFireStorage } from "@angular/fire/storage";
 
 @IonicPage()
 @Component({
@@ -47,7 +48,9 @@ export class DetailsPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public db: AngularFirestore,
-    public alertCtrl: AlertController
+    public storage: AngularFireStorage,
+    public alertCtrl: AlertController,
+    private camera: Camera
   ) {
     // Get info from the navigation parameters and assign local vars
     this.listName = navParams.get("listName");
@@ -147,5 +150,23 @@ export class DetailsPage {
       ]
     });
     confirm.present();
+  }
+
+  takePicture() {
+    let options = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    };
+    this.camera.getPicture(options).then(
+      imageData => {
+        let base64Image = "data:image/jpeg;base64," + imageData;
+        // Upload to firebase here and get the images path
+      },
+      err => {
+        console.log("Camera error!");
+      }
+    );
   }
 }

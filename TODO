@@ -4,6 +4,13 @@ Settings page where user can set when they want a reading reminder
 Push notifications when the reminder occurs
 Timer page so users can set a specific time to read
 Timer push notifications.
+Implement reorder function
+Add more swipes to other pages?
+  Right now only use to swipe back from specific book list to all lists
+
+ion-note for greyed out info text?
+fix home screen margins: center the information vertically
+
 
 MAYBE:
 Change up header colors?

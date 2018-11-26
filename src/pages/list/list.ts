@@ -28,6 +28,13 @@ export class ListPage {
     this.books = this.bookListRef.valueChanges();
   }
 
+  swipeEvent(event) {
+    // User swipes right
+    if (event.direction == 4) {
+      this.navCtrl.pop();
+    }
+  }
+
   editBook(title) {
     this.navCtrl.push(DetailsPage, {
       listName: this.listName,
