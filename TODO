@@ -1,0 +1,9 @@
+Allow users to switch lists under the details.
+Implement camera support and firebase storage for photos
+Settings page where user can set when they want a reading reminder
+Push notifications when the reminder occurs
+Timer page so users can set a specific time to read
+Timer push notifications.
+
+MAYBE:
+Change up header colors?

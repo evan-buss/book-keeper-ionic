@@ -111,6 +111,7 @@ export class DetailsPage {
     this.bookListCol.doc(this.book.title).set({
       title: this.book.title,
       author: this.book.author,
+      photoURL: this.book.photoURL == "" ? null : this.book.photoURL,
       dateAdded: new Date().toLocaleDateString()
     });
   }
