@@ -2,12 +2,18 @@
   <ion-navbar> <ion-title> Your Book Lists </ion-title> </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
   <ion-list>
-    <ion-list-header>
+    <!--
+      <ion-list-header>
+        <div item-left>Lists</div>
+        <div item-right>Last Updated</div>
+      </ion-list-header>
+    -->
+    <ion-item-divider color="light">
       <div item-left>Lists</div>
       <div item-right>Last Updated</div>
-    </ion-list-header>
+    </ion-item-divider>
     <button
       ion-item
       *ngFor="let list of (lists | async)"

@@ -1,7 +1,51 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>{{ listName }}</ion-title>
+    <ion-title>{{ navTitle }}</ion-title>
+    <ion-buttons end>
+      <button (click)="deleteBook()" color="danger" ion-button icon-only>
+        <ion-icon name="close"> </ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding> </ion-content>
+<ion-content padding>
+  <ion-list>
+    <ion-item>
+      <ion-img *ngIf="imgProvided" src="../../assets/imgs/books.jpg	"> </ion-img>
+      <button
+        *ngIf="!imgProvided"
+        class="imgButton"
+        (click)="takePicture()"
+        icon-only
+      >
+        <ion-icon name="camera"> </ion-icon>
+      </button>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Title</ion-label>
+      <ion-input
+        #titleInput
+        clearInput
+        clearOnEdit
+        type="text"
+        value=""
+        [(ngModel)]="bookTitle"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Author</ion-label>
+      <ion-input
+        #authorInput
+        clearInput
+        clearOnEdit
+        type="text"
+        value=""
+        [(ngModel)]="bookAuthor"
+        (keydown.enter)="saveChanges()"
+      ></ion-input>
+    </ion-item>
+  </ion-list>
+  <button (click)="saveChanges()" block ion-button>Save Changes</button>
+</ion-content>

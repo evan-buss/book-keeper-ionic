@@ -28,18 +28,20 @@ export class ListPage {
     this.books = this.bookListRef.valueChanges();
   }
 
+  editBook(title) {
+    this.navCtrl.push(DetailsPage, {
+      listName: this.listName,
+      bookTitle: title,
+      purpose: "edit"
+    });
+  }
+
   addBook(event) {
     this.navCtrl.push(DetailsPage, {
       listName: this.listName,
-      title: "Add a Book"
+      bookTitle: "",
+      purpose: "add"
     });
-
-    // console.log("Book create event here");
-    // this.bookListRef.add({
-    //   title: "Book Title",
-    //   author: "Book Author",
-    //   dateAdded: new Date().toLocaleDateString()
-    // });
   }
 
   // ionViewDidLoad() {

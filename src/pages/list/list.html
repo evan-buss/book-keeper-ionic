@@ -4,10 +4,18 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
   <ion-list>
-    <ion-list-header> Books </ion-list-header>
-    <button ion-item *ngFor="let book of (books | async)">
+    <ion-item-divider color="light">
+      <div item-left>Books</div>
+    </ion-item-divider>
+    <!-- <ion-list-header> Books </ion-list-header> -->
+    <button
+      padding
+      ion-item
+      (click)="editBook(book.title)"
+      *ngFor="let book of (books | async)"
+    >
       {{ book.title }}
     </button>
   </ion-list>
