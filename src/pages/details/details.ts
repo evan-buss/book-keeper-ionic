@@ -16,20 +16,32 @@ export class DetailsPage {
   @ViewChild("titleInput") titleInput;
   @ViewChild("authorInput") authorInput;
 
+  // The name of the specific book list. Used to retrieve document of the
+  //  same name
   listName: string;
+  // True if book already exists otherwise a new book will be created
   editNotAdd: boolean;
+  // True if there is an image associated with the book
   imgProvided: boolean = false;
 
-  // Firebase ref to full booklist
+  // Firebase collection for books in the given book list
   bookListCol: AngularFirestoreCollection;
-  selBookDoc: AngularFirestoreDocument;
-  books: any;
-  // books: Observable<Book[]>;
 
+  // The formatted string that will be displayed in the navbar
+  // Changes depending on if the user is creating or editing a book
   navTitle: string;
-  bookID: string;
-  bookTitle: string;
-  bookAuthor: string;
+  // The associated information of the book being edited or created
+  book: any = {
+    id: "",
+    title: "",
+    author: "",
+    photoURL: ""
+  };
+
+  // bookID: string;
+  // // The title of the book being edited or created
+  // bookTitle: string;
+  // bookAuthor: string;
 
   constructor(
     public navCtrl: NavController,
@@ -54,20 +66,8 @@ export class DetailsPage {
       .doc(this.listName)
       .collection("books");
 
-    // Get
-    db.collection("book-lists")
-      .ref.where("name", "==", "to-read")
-      .get()
-      .then(snap => {
-        if (!snap.empty) {
-          let results = snap.docs.map(item => {
-            return item.data();
-          });
-          console.log("Query test: ", results[0].name);
-        }
-      });
-
     // Populate local variables with book information from firebase
+    // Search for the document with the book title given as a parameter
     if (this.editNotAdd) {
       db.collection("book-lists")
         .doc(this.listName)
@@ -79,15 +79,13 @@ export class DetailsPage {
             let results = snap.docs.map(item => {
               return { id: item.id, data: item.data() };
             });
-            this.bookAuthor = results[0].data.author;
-            this.bookTitle = results[0].data.title;
-            this.bookID = results[0].id;
+            this.book.author = results[0].data.author;
+            this.book.title = results[0].data.title;
+            this.book.id = results[0].id;
           } else {
             console.log("No results for the query...");
           }
         });
-      console.log(this.bookTitle);
-      console.log(this.bookAuthor);
     }
   }
 
@@ -100,27 +98,32 @@ export class DetailsPage {
     this.navCtrl.pop();
   }
 
+  // Used to update the details of a book, not overwrite the entire thing
   editBook() {
-    console.log("edit book function");
-    this.bookListCol.doc(this.bookID).update({
-      author: this.bookAuthor,
-      title: this.bookTitle
+    this.bookListCol.doc(this.book.id).update({
+      author: this.book.author,
+      title: this.book.title
     });
   }
 
+  // Used to add a new book with all new information
   addBook() {
-    console.log("Book create event here");
-    this.bookListCol.doc(this.bookTitle).set({
-      title: this.bookTitle,
-      author: this.bookAuthor,
+    this.bookListCol.doc(this.book.title).set({
+      title: this.book.title,
+      author: this.book.author,
       dateAdded: new Date().toLocaleDateString()
     });
   }
 
+  // Delete the selected book. Prompts user before deleting
   deleteBook() {
     const confirm = this.alertCtrl.create({
-      title: "Are you sure you want to delete this book?",
-      message: "Once a book is deleted you can not recover it.",
+      title: this.editNotAdd
+        ? "Are you sure you want to delete this book?"
+        : "Are you sure you want to cancel book creation?",
+      message: this.editNotAdd
+        ? "Once a book is deleted you can not recover it."
+        : "Entered information will not be saved.",
       buttons: [
         {
           text: "No",
@@ -131,19 +134,17 @@ export class DetailsPage {
         {
           text: "Yes",
           handler: () => {
-            if (this.editNotAdd == false) {
-              console.log("Delete existing book.");
+            if (this.editNotAdd) {
+              this.bookListCol.doc(this.book.id).delete();
             } else {
-              console.log("Cancel book creation");
+              this.book.author = "";
+              this.book.title = "";
             }
+            this.navCtrl.pop();
           }
         }
       ]
     });
     confirm.present();
   }
-
-  // ionViewDidLoad() {
-  //   console.log("ionViewDidLoad DetailsPage");
-  // }
 }

@@ -31,7 +31,7 @@
         clearOnEdit
         type="text"
         value=""
-        [(ngModel)]="bookTitle"
+        [(ngModel)]="book.title"
       ></ion-input>
     </ion-item>
     <ion-item>
@@ -42,7 +42,7 @@
         clearOnEdit
         type="text"
         value=""
-        [(ngModel)]="bookAuthor"
+        [(ngModel)]="book.author"
         (keydown.enter)="saveChanges()"
       ></ion-input>
     </ion-item>

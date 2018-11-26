@@ -42,6 +42,7 @@ export class BookListPage {
   }
 
   itemTapped(event, list) {
+    this.inputVisible = false;
     this.navCtrl.push(ListPage, {
       list: list
     });
