@@ -8,6 +8,7 @@ import { AngularFireStorage } from "@angular/fire/storage";
 import { AlertController } from "ionic-angular";
 import { Camera, CameraOptions } from "@ionic-native/camera";
 import firebase from "firebase";
+import { v4 as uuid } from "uuid";
 
 @IonicPage()
 @Component({
@@ -80,7 +81,6 @@ export class DetailsPage {
             this.book.author = results[0].data.author;
             this.book.title = results[0].data.title;
             this.book.photoURL = results[0].data.photoURL;
-            console.log("Photo URL: " + this.book.photoURL);
             if (this.book.photoURL !== "" && this.book.photoURL !== null) {
               this.imgProvided = true;
             }
@@ -112,17 +112,14 @@ export class DetailsPage {
 
   // Used to add a new book with all new information
   addBook() {
-    if (this.book.title === "" || this.book.author == "") {
-      console.log("Enter some shit bro");
-    } else {
-      this.bookListCol.doc(this.book.title).set({
-        title: this.book.title,
-        author: this.book.author,
-        photoURL: this.book.photoURL,
-        dateAdded: new Date().toLocaleDateString()
-      });
-    }
+    this.bookListCol.doc(this.book.title).set({
+      title: this.book.title,
+      author: this.book.author,
+      photoURL: this.book.photoURL,
+      dateAdded: new Date().toLocaleDateString()
+    });
   }
+
   rateBook() {
     const rating = this.alertCtrl.create({
       title: "Book Rating"
@@ -183,14 +180,11 @@ export class DetailsPage {
 
   private uploadPhoto(): void {
     this.restrictSave = true;
-    var imageRef = firebase
-      .storage()
-      .ref("bookPhotos/" + this.book.author + "_" + this.book.title + ".jpeg");
+    var imageRef = firebase.storage().ref("bookPhotos/" + uuid() + ".jpeg");
     imageRef
       .putString(this.myPhoto, "base64", { contentType: "image/jpeg" })
       .then(() => {
         imageRef.getDownloadURL().then(url => {
-          console.log(url);
           this.book.photoURL = url;
           this.imgProvided = true;
           this.restrictSave = false;
