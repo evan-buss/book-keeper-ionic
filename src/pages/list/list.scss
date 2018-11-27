@@ -1,3 +1,8 @@
 page-list {
-
+  ion-thumbnail {
+    transform: rotate(90deg);
+  }
+  img {
+    object-fit: cover;
+  }
 }

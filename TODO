@@ -1,17 +1,27 @@
 Allow users to switch lists under the details.
-Implement camera support and firebase storage for photos
+
 Settings page where user can set when they want a reading reminder
+
 Push notifications when the reminder occurs
+
 Timer page so users can set a specific time to read
 Timer push notifications.
-Implement reorder function
+
 Add more swipes to other pages?
   Right now only use to swipe back from specific book list to all lists
+  SWIPE NOT WORKING ON DEVICE
 
 ion-note for greyed out info text?
 fix home screen margins: center the information vertically
+add ratings for books
+
+Figure out a solution to wierd looking stretched photos
+  Figure out best way to display photos without them looking wonky.
+
+ion-spinner for when image is uploading?
 
 Add dark load screen instead of light one
+RENAME restrictSaving to imageUploading because that is the only thing that triggers it now
 
 MAYBE:
-Change up header colors?
+Change up header colors to make it look more colorful

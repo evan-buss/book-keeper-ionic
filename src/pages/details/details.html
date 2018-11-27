@@ -2,6 +2,9 @@
   <ion-navbar>
     <ion-title>{{ navTitle }}</ion-title>
     <ion-buttons end>
+      <button (click)="rateBook()" color="rating" ion-button icon-only>
+        <ion-icon name="star"> </ion-icon>
+      </button>
       <button (click)="deleteBook()" color="danger" ion-button icon-only>
         <ion-icon name="close"> </ion-icon>
       </button>
@@ -9,43 +12,58 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
   <ion-list>
     <ion-item>
-      <ion-img *ngIf="imgProvided" src="../../assets/imgs/books.jpg	"> </ion-img>
+      <img
+        *ngIf="book.photoURL !== null && book.photoURL !== '' && !restrictSave"
+        [src]="book.photoURL"
+      />
       <button
         *ngIf="!imgProvided"
         class="imgButton"
         (click)="takePicture()"
         icon-only
       >
-        <ion-icon name="camera"> </ion-icon>
+        <ion-icon *ngIf="!restrictSave" name="camera"> </ion-icon
+        ><ion-spinner *ngIf="restrictSave"></ion-spinner>
       </button>
     </ion-item>
-
-    <ion-item>
-      <ion-label floating>Title</ion-label>
-      <ion-input
-        #titleInput
-        clearInput
-        clearOnEdit
-        type="text"
-        value=""
-        [(ngModel)]="book.title"
-      ></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label floating>Author</ion-label>
-      <ion-input
-        #authorInput
-        clearInput
-        clearOnEdit
-        type="text"
-        value=""
-        [(ngModel)]="book.author"
-        (keydown.enter)="saveChanges()"
-      ></ion-input>
-    </ion-item>
+    <ion-item-group padding>
+      <ion-item>
+        <ion-label floating>Title</ion-label>
+        <ion-input
+          #titleInput
+          clearInput
+          clearOnEdit
+          type="text"
+          value=""
+          [(ngModel)]="book.title"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Author</ion-label>
+        <ion-input
+          #authorInput
+          clearInput
+          clearOnEdit
+          type="text"
+          value=""
+          [(ngModel)]="book.author"
+          (keydown.enter)="saveChanges()"
+        ></ion-input>
+      </ion-item>
+      <button
+        margin-top
+        [disabled]="
+          restrictSave || this.book.title === '' || this.book.author === ''
+        "
+        block
+        (click)="saveChanges()"
+        ion-button
+      >
+        Save Changes
+      </button>
+    </ion-item-group>
   </ion-list>
-  <button (click)="saveChanges()" block ion-button>Save Changes</button>
 </ion-content>

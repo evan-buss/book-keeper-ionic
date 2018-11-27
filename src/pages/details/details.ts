@@ -4,9 +4,10 @@ import {
   AngularFirestore,
   AngularFirestoreCollection
 } from "@angular/fire/firestore";
-import { AlertController } from "ionic-angular";
-import { Camera } from "@ionic-native/camera";
 import { AngularFireStorage } from "@angular/fire/storage";
+import { AlertController } from "ionic-angular";
+import { Camera, CameraOptions } from "@ionic-native/camera";
+import firebase from "firebase";
 
 @IonicPage()
 @Component({
@@ -39,22 +40,16 @@ export class DetailsPage {
     photoURL: ""
   };
 
-  // bookID: string;
-  // // The title of the book being edited or created
-  // bookTitle: string;
-  // bookAuthor: string;
-
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public alertCtrl: AlertController,
     public db: AngularFirestore,
     public storage: AngularFireStorage,
-    public alertCtrl: AlertController,
-    private camera: Camera
+    public camera: Camera
   ) {
     // Get info from the navigation parameters and assign local vars
     this.listName = navParams.get("listName");
-    // this.bookTitle = navParams.get("bookTitle");
     if (navParams.get("purpose") === "edit") {
       this.editNotAdd = true;
       this.navTitle = "Edit: " + navParams.get("bookTitle");
@@ -84,6 +79,11 @@ export class DetailsPage {
             });
             this.book.author = results[0].data.author;
             this.book.title = results[0].data.title;
+            this.book.photoURL = results[0].data.photoURL;
+            console.log("Photo URL: " + this.book.photoURL);
+            if (this.book.photoURL !== "" && this.book.photoURL !== null) {
+              this.imgProvided = true;
+            }
             this.book.id = results[0].id;
           } else {
             console.log("No results for the query...");
@@ -105,18 +105,29 @@ export class DetailsPage {
   editBook() {
     this.bookListCol.doc(this.book.id).update({
       author: this.book.author,
-      title: this.book.title
+      title: this.book.title,
+      photoURL: this.book.photoURL
     });
   }
 
   // Used to add a new book with all new information
   addBook() {
-    this.bookListCol.doc(this.book.title).set({
-      title: this.book.title,
-      author: this.book.author,
-      photoURL: this.book.photoURL == "" ? null : this.book.photoURL,
-      dateAdded: new Date().toLocaleDateString()
+    if (this.book.title === "" || this.book.author == "") {
+      console.log("Enter some shit bro");
+    } else {
+      this.bookListCol.doc(this.book.title).set({
+        title: this.book.title,
+        author: this.book.author,
+        photoURL: this.book.photoURL,
+        dateAdded: new Date().toLocaleDateString()
+      });
+    }
+  }
+  rateBook() {
+    const rating = this.alertCtrl.create({
+      title: "Book Rating"
     });
+    rating.present();
   }
 
   // Delete the selected book. Prompts user before deleting
@@ -152,21 +163,38 @@ export class DetailsPage {
     confirm.present();
   }
 
+  myPhoto: any;
+  restrictSave: boolean = false;
+
   takePicture() {
-    let options = {
+    const options: CameraOptions = {
       quality: 100,
-      destinationType: this.camera.DestinationType.FILE_URI,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      sourceType: this.camera.PictureSourceType.CAMERA,
+      mediaType: this.camera.MediaType.PICTURE,
       encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
+      saveToPhotoAlbum: true
     };
-    this.camera.getPicture(options).then(
-      imageData => {
-        let base64Image = "data:image/jpeg;base64," + imageData;
-        // Upload to firebase here and get the images path
-      },
-      err => {
-        console.log("Camera error!");
-      }
-    );
+    this.camera.getPicture(options).then(imageData => {
+      this.myPhoto = imageData;
+      this.uploadPhoto();
+    });
+  }
+
+  private uploadPhoto(): void {
+    this.restrictSave = true;
+    var imageRef = firebase
+      .storage()
+      .ref("bookPhotos/" + this.book.author + "_" + this.book.title + ".jpeg");
+    imageRef
+      .putString(this.myPhoto, "base64", { contentType: "image/jpeg" })
+      .then(() => {
+        imageRef.getDownloadURL().then(url => {
+          console.log(url);
+          this.book.photoURL = url;
+          this.imgProvided = true;
+          this.restrictSave = false;
+        });
+      });
   }
 }

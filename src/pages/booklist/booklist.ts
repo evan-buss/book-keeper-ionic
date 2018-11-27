@@ -20,7 +20,6 @@ export class BookListPage {
   constructor(public navCtrl: NavController, db: AngularFirestore) {
     this.fireStore = db;
     this.lists = db.collection<any>("book-lists").valueChanges();
-    console.log("Lists: " + this.lists);
   }
 
   createList(event) {

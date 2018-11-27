@@ -30,9 +30,10 @@ export class ListPage {
 
   swipeEvent(event) {
     // User swipes right
-    if (event.direction == 4) {
-      this.navCtrl.pop();
-    }
+    // if (event.direction == 4) {
+    //   this.navCtrl.pop();
+    // }
+    this.navCtrl.pop();
   }
 
   editBook(title) {
