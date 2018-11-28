@@ -1,19 +1,21 @@
 
 Book Keeper:
   Lists:
-    ☐ Allow users to switch lists under the details.
-    ☐ Settings page where user can set when they want a reading reminder
-    ☐ Push notifications when the reminder occurs
-    ☐ Try to downscale image to an 800x800 photo
+    ☐ Allow users to switch lists under the details. @today @critical
+    ☐ Figure out how to get loading spinner to work when uploading a new photo over an existing image @today @high
+      - Right now it shows nothing and then the content pops downwards once it loads...
+    ☐ Try to downscale image to an 800x800 photo @low
       - May have to use canEdit feature or the height and width options of camera
 
   Timer:
-    ☐ Timer page so users can set a specific time to read
-      ☐ Timer push notifications.
+    ☐ Settings page where user can set when they want a reading reminder @high
+    ☐ Timer page so users can set a specific time to read @high
+      ☐ Timer push notifications / alerts / sounds.
+    ☐ Push notifications when the reminder occurs @high
   General:
-      ☐ fix home screen margins: center the information vertically
-      ☐ Add dark load screen instead of light one
-      ☐ _rename_ restrictSaving to imageUploading because that is the only thing that triggers it now @me
+      ✔ fix home screen margins: center the information vertically @done(18-11-28 11:10)
+      ✘ Add dark load screen instead of light one @cancelled(18-11-28 11:11)
+      ✔ _rename_ restrictSaving to imageUploading because that is the only thing that triggers it now @done(18-11-28 11:27)
       ☐ Change up header colors to make it look more colorful @low
   Fixes:
     ☐ SWIPE NOT WORKING ON DEVICE @low

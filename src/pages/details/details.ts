@@ -214,7 +214,7 @@ export class DetailsPage {
   }
 
   myPhoto: any;
-  restrictSave: boolean = false;
+  imageUploading: boolean = false;
 
   takePicture() {
     const options: CameraOptions = {
@@ -225,14 +225,19 @@ export class DetailsPage {
       encodingType: this.camera.EncodingType.JPEG,
       saveToPhotoAlbum: true
     };
-    this.camera.getPicture(options).then(imageData => {
-      this.myPhoto = imageData;
-      this.uploadPhoto();
-    });
+    this.camera
+      .getPicture(options)
+      .then(imageData => {
+        this.myPhoto = imageData;
+        this.uploadPhoto();
+      })
+      .catch(error => {
+        console.log("Error taking picture: ", error);
+      });
   }
 
   private uploadPhoto(): void {
-    this.restrictSave = true;
+    this.imageUploading = true;
     var imageRef = firebase.storage().ref("bookPhotos/" + uuid() + ".jpeg");
     imageRef
       .putString(this.myPhoto, "base64", { contentType: "image/jpeg" })
@@ -240,6 +245,7 @@ export class DetailsPage {
         imageRef.getDownloadURL().then(url => {
           // Delete old photo from library if it already exists
           if (this.book.photoURL !== "") {
+            this.imgProvided = false;
             firebase
               .storage()
               .refFromURL(this.book.photoURL)
@@ -247,7 +253,7 @@ export class DetailsPage {
           }
           this.book.photoURL = url;
           this.imgProvided = true;
-          this.restrictSave = false;
+          this.imageUploading = false;
         });
       });
   }

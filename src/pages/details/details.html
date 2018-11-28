@@ -17,17 +17,20 @@
     <ion-item>
       <img
         (click)="takePicture()"
-        *ngIf="book.photoURL !== null && book.photoURL !== '' && !restrictSave"
+        *ngIf="
+          book.photoURL !== null && book.photoURL !== '' && !imageUploading
+        "
         [src]="book.photoURL"
       />
+
       <button
         *ngIf="!imgProvided"
         class="imgButton"
         (click)="takePicture()"
         icon-only
       >
-        <ion-icon *ngIf="!restrictSave" name="camera"> </ion-icon
-        ><ion-spinner *ngIf="restrictSave"></ion-spinner>
+        <ion-icon *ngIf="!imageUploading" name="camera"></ion-icon>
+        <ion-spinner *ngIf="imageUploading"></ion-spinner>
       </button>
     </ion-item>
     <ion-item-group padding>
@@ -57,7 +60,7 @@
       <button
         margin-top
         [disabled]="
-          restrictSave || this.book.title === '' || this.book.author === ''
+          imageUploading || this.book.title === '' || this.book.author === ''
         "
         block
         (click)="saveChanges()"
