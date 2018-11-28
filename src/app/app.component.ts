@@ -4,7 +4,7 @@ import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 
 import { TabsPage } from "../pages/tabs/tabs";
-import firebase from "firebase";
+import * as firebase from "firebase/app";
 
 @Component({
   templateUrl: "app.html"
@@ -25,6 +25,10 @@ export class MyApp {
       projectId: "book-list-68850",
       storageBucket: "book-list-68850.appspot.com",
       messagingSenderId: "5517341615"
+    });
+
+    firebase.firestore().settings({
+      timestampsInSnapshots: true
     });
 
     platform.ready().then(() => {

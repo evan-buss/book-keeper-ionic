@@ -1,12 +1,15 @@
 import { Component, Input } from "@angular/core";
-import { IonicPage, NavController, NavParams } from "ionic-angular";
+import {
+  IonicPage,
+  NavController,
+  ToastController,
+  ModalController,
+  NavParams
+} from "ionic-angular";
+import * as firebase from "firebase/app";
+import "firebase/firestore";
+import { ModalContentPage } from "../modal-content/modal-content";
 
-/**
- * Generated class for the TimerPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 export interface CountdownTimer {
   seconds: number;
   secondsRemaining: number;
@@ -22,11 +25,68 @@ export interface CountdownTimer {
   templateUrl: "timer.html"
 })
 export class TimerPage {
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
-
   @Input() timeInSeconds: number;
   timer: CountdownTimer;
   timerReady: boolean = false;
+  reminderDays: Object;
+  reminderTime: Date;
+
+  constructor(
+    public navCtrl: NavController,
+    public toastCtrl: ToastController,
+    public modalCtrl: ModalController,
+    public navParams: NavParams
+  ) {
+    firebase
+      .firestore()
+      .collection("reminders")
+      .doc("reminder")
+      .get()
+      .then(doc => {
+        if (doc.exists) {
+          this.reminderDays = doc.data().reminderDays;
+          this.reminderTime = doc.data().reminderTime;
+        }
+      });
+    firebase
+      .firestore()
+      .collection("reminders")
+      .doc("reminderTime")
+      .get();
+  }
+
+  public showModal() {
+    const modal = this.modalCtrl.create(ModalContentPage, {
+      reminderDays: this.reminderDays,
+      reminderTime: this.reminderTime
+    });
+
+    modal.onDidDismiss(data => {
+      this.reminderDays = data.reminderDays;
+      this.reminderTime = data.reminderTime;
+      this.saveReminder();
+    });
+    modal.present();
+  }
+
+  saveReminder() {
+    firebase
+      .firestore()
+      .collection("reminders")
+      .doc("reminder")
+      .set({
+        reminderDays: this.reminderDays,
+        reminderTime: this.reminderTime
+      });
+
+    let toast = this.toastCtrl.create({
+      message: "Reminder time and days saved!",
+      duration: 2000,
+      position: "top"
+    });
+
+    toast.present();
+  }
 
   ngOnInit() {
     this.initTimer();

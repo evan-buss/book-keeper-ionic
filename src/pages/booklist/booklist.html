@@ -9,15 +9,19 @@
       <div item-right>Last Updated</div>
     </ion-item-divider>
     <ion-item-group>
-      <button
-        ion-item
-        *ngFor="let list of (lists | async)"
-        (click)="itemTapped($event, list)"
-      >
-        <ion-icon name="book" item-start></ion-icon>
-        {{ list.name }}
-        <div item-right padding>{{ list.lastModified }}</div>
-      </button>
+      <ion-item-sliding *ngFor="let list of (lists | async)">
+        <button ion-item (click)="itemTapped($event, list)">
+          <ion-icon name="book" item-start></ion-icon>
+          {{ list.name }}
+          <div item-right padding>{{ list.lastModified }}</div>
+        </button>
+        <ion-item-options side="right">
+          <button (click)="deleteList(list.name)" ion-button color="danger">
+            <ion-icon name="close"></ion-icon>
+            Delete
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
       <ion-item *ngIf="inputVisible">
         <ion-label fixed>List Name</ion-label>
         <ion-input

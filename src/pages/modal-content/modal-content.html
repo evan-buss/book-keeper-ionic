@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-navbar> <ion-title>Reminder Settings</ion-title> </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item>
+      <ion-label style="color: black;">Reminder Time</ion-label>
+      <ion-datetime
+        displayFormat="h:mm A"
+        pickerFormat="h mm A"
+        [(ngModel)]="reminderTime"
+      ></ion-datetime>
+    </ion-item>
+    <ion-item> <ion-label>Reminder Days</ion-label> </ion-item>
+    <ion-item>
+      <ion-label>Sunday</ion-label>
+      <ion-checkbox
+        color="dark"
+        [(ngModel)]="reminderDays.sunday"
+      ></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Monday</ion-label>
+      <ion-checkbox
+        color="dark"
+        [(ngModel)]="reminderDays.monday"
+      ></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Tuesday</ion-label>
+      <ion-checkbox
+        color="dark"
+        [(ngModel)]="reminderDays.tuesday"
+      ></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Wednesday</ion-label>
+      <ion-checkbox
+        color="dark"
+        [(ngModel)]="reminderDays.wednesday"
+      ></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Thursday</ion-label>
+      <ion-checkbox
+        color="dark"
+        [(ngModel)]="reminderDays.thursday"
+      ></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Friday</ion-label>
+      <ion-checkbox
+        color="dark"
+        [(ngModel)]="reminderDays.friday"
+      ></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Saturday</ion-label>
+      <ion-checkbox
+        color="dark"
+        [(ngModel)]="reminderDays.saturday"
+      ></ion-checkbox>
+    </ion-item>
+  </ion-list>
+  <button margin-top (click)="dismiss()" ion-button block>
+    Save Reminder Settings
+  </button>
+</ion-content>

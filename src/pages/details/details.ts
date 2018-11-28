@@ -7,8 +7,9 @@ import {
 import { AngularFireStorage } from "@angular/fire/storage";
 import { AlertController } from "ionic-angular";
 import { Camera, CameraOptions } from "@ionic-native/camera";
-import firebase from "firebase";
 import { v4 as uuid } from "uuid";
+import * as firebase from "firebase/app";
+import "firebase/storage";
 
 @IonicPage()
 @Component({
@@ -245,14 +246,16 @@ export class DetailsPage {
         imageRef.getDownloadURL().then(url => {
           // Delete old photo from library if it already exists
           if (this.book.photoURL !== "") {
-            this.imgProvided = false;
+            // this.imgProvided = false;
+            let oldURL = this.book.photoURL;
+            this.book.photoURL = "";
             firebase
               .storage()
-              .refFromURL(this.book.photoURL)
+              .refFromURL(oldURL)
               .delete();
           }
           this.book.photoURL = url;
-          this.imgProvided = true;
+          // this.imgProvided = true;
           this.imageUploading = false;
         });
       });

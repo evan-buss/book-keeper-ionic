@@ -3,6 +3,8 @@ import { NavController } from "ionic-angular";
 import { ListPage } from "../list/list";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { Observable } from "rxjs-compat";
+import * as firebase from "firebase/app";
+import "firebase/firestore";
 
 @Component({
   selector: "page-booklist",
@@ -20,6 +22,35 @@ export class BookListPage {
   constructor(public navCtrl: NavController, db: AngularFirestore) {
     this.fireStore = db;
     this.lists = db.collection<any>("book-lists").valueChanges();
+  }
+
+  deleteList(name) {
+    console.log("deleting list");
+
+    // Delete the document disk
+    firebase
+      .firestore()
+      .collection("book-lists")
+      .doc(name)
+      .delete();
+
+    // Delete all documents in the books sub-collection
+    firebase
+      .firestore()
+      .collection("book-lists")
+      .doc(name)
+      .collection("books")
+      .get()
+      .then(doc => {
+        if (!doc.empty) {
+          for (let i = 0; i < doc.size; i++) {
+            let docs = doc.docs;
+            docs.forEach(doc => {
+              doc.ref.delete();
+            });
+          }
+        }
+      });
   }
 
   createList(event) {

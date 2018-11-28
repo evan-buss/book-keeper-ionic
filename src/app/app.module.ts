@@ -16,6 +16,7 @@ import { BookListPage } from "../pages/booklist/booklist";
 import { ListPage } from "../pages/list/list";
 import { DetailsPage } from "../pages/details/details";
 import { TimerPage } from "../pages/timer/timer";
+import { ModalContentPage } from "../pages/modal-content/modal-content";
 
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
@@ -38,7 +39,8 @@ export const firebaseConfig = {
     BookListPage,
     ListPage,
     DetailsPage,
-    TimerPage
+    TimerPage,
+    ModalContentPage
   ],
   imports: [
     BrowserModule,
@@ -56,7 +58,8 @@ export const firebaseConfig = {
     BookListPage,
     ListPage,
     DetailsPage,
-    TimerPage
+    TimerPage,
+    ModalContentPage
   ],
   providers: [
     StatusBar,
