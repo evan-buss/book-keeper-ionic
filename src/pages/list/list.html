@@ -11,7 +11,6 @@
       <div item-right>Date Added</div>
     </ion-item-divider>
     <button
-      padding
       ion-item
       (click)="editBook(book.title)"
       *ngFor="let book of (books | async)"
@@ -19,8 +18,13 @@
       <ion-thumbnail *ngIf="book.photoURL !== ''" item-start>
         <img [src]="book.photoURL" />
       </ion-thumbnail>
-      {{ book.title }}
-      <div item-right padding>{{ book.dateAdded }}</div>
+      <ion-icon *ngIf="book.photoURL === ''" name="book" item-start></ion-icon>
+      <h1>{{ book.title }}</h1>
+      <ion-note>
+        <h2>{{ book.author }}</h2>
+      </ion-note>
+      <!-- <div item-right>{{ book.dateAdded }}</div> -->
+      <ion-note item-end>{{ book.dateAdded }}</ion-note>
     </button>
   </ion-list>
   <ion-fab bottom right>

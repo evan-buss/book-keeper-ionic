@@ -16,6 +16,7 @@
   <ion-list>
     <ion-item>
       <img
+        (click)="takePicture()"
         *ngIf="book.photoURL !== null && book.photoURL !== '' && !restrictSave"
         [src]="book.photoURL"
       />

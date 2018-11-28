@@ -1,27 +1,27 @@
-Allow users to switch lists under the details.
 
-Settings page where user can set when they want a reading reminder
+Book Keeper:
+  Lists:
+    ☐ Allow users to switch lists under the details.
+    ☐ Settings page where user can set when they want a reading reminder
+    ☐ Push notifications when the reminder occurs
+    ☐ Try to downscale image to an 800x800 photo
+      - May have to use canEdit feature or the height and width options of camera
 
-Push notifications when the reminder occurs
+  Timer:
+    ☐ Timer page so users can set a specific time to read
+      ☐ Timer push notifications.
+  General:
+      ☐ fix home screen margins: center the information vertically
+      ☐ Add dark load screen instead of light one
+      ☐ _rename_ restrictSaving to imageUploading because that is the only thing that triggers it now @me
+      ☐ Change up header colors to make it look more colorful @low
+  Fixes:
+    ☐ SWIPE NOT WORKING ON DEVICE @low
 
-Timer page so users can set a specific time to read
-Timer push notifications.
-
-Add more swipes to other pages?
-  Right now only use to swipe back from specific book list to all lists
-  SWIPE NOT WORKING ON DEVICE
-
-ion-note for greyed out info text?
-fix home screen margins: center the information vertically
-add ratings for books
-
-Figure out a solution to wierd looking stretched photos
-  Figure out best way to display photos without them looking wonky.
-
-ion-spinner for when image is uploading?
-
-Add dark load screen instead of light one
-RENAME restrictSaving to imageUploading because that is the only thing that triggers it now
-
-MAYBE:
-Change up header colors to make it look more colorful
+Archived:
+  ✔ delete storage image by URL when they delete the book item @done(18-11-28 00:57)
+  ✔ ion-note for greyed out info text? @done(18-11-28 00:57)
+  ✔ ion-spinner for when image is uploading? @done(18-11-28 00:58)
+  ✔ add ratings for books @done(18-11-28 00:58)
+  ✔ Figure out a solution to wierd looking stretched photos @done(18-11-28 00:58)
+  ✔ Figure out best way to display photos without them looking wonky. @done(18-11-28 00:58)

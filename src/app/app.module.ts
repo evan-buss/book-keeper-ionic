@@ -15,6 +15,7 @@ import { TabsPage } from "../pages/tabs/tabs";
 import { BookListPage } from "../pages/booklist/booklist";
 import { ListPage } from "../pages/list/list";
 import { DetailsPage } from "../pages/details/details";
+import { TimerPage } from "../pages/timer/timer";
 
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
@@ -36,7 +37,8 @@ export const firebaseConfig = {
     TabsPage,
     BookListPage,
     ListPage,
-    DetailsPage
+    DetailsPage,
+    TimerPage
   ],
   imports: [
     BrowserModule,
@@ -53,7 +55,8 @@ export const firebaseConfig = {
     TabsPage,
     BookListPage,
     ListPage,
-    DetailsPage
+    DetailsPage,
+    TimerPage
   ],
   providers: [
     StatusBar,

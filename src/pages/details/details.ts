@@ -38,7 +38,8 @@ export class DetailsPage {
     id: "",
     title: "",
     author: "",
-    photoURL: ""
+    photoURL: "",
+    rating: ""
   };
 
   constructor(
@@ -81,6 +82,7 @@ export class DetailsPage {
             this.book.author = results[0].data.author;
             this.book.title = results[0].data.title;
             this.book.photoURL = results[0].data.photoURL;
+            this.book.rating = results[0].data.rating;
             if (this.book.photoURL !== "" && this.book.photoURL !== null) {
               this.imgProvided = true;
             }
@@ -106,7 +108,8 @@ export class DetailsPage {
     this.bookListCol.doc(this.book.id).update({
       author: this.book.author,
       title: this.book.title,
-      photoURL: this.book.photoURL
+      photoURL: this.book.photoURL,
+      rating: this.book.rating
     });
   }
 
@@ -116,15 +119,55 @@ export class DetailsPage {
       title: this.book.title,
       author: this.book.author,
       photoURL: this.book.photoURL,
-      dateAdded: new Date().toLocaleDateString()
+      dateAdded: new Date().toLocaleDateString(),
+      rating: this.book.rating
     });
   }
 
-  rateBook() {
-    const rating = this.alertCtrl.create({
-      title: "Book Rating"
+  rateBook(event) {
+    let alert = this.alertCtrl.create();
+    alert.setTitle("Book Rating");
+
+    alert.addInput({
+      type: "radio",
+      label: "⭐",
+      value: "1",
+      checked: this.book.rating === "1" ? true : false
     });
-    rating.present();
+    alert.addInput({
+      type: "radio",
+      label: "⭐⭐",
+      value: "2",
+      checked: this.book.rating === "2" ? true : false
+    });
+    alert.addInput({
+      type: "radio",
+      label: "⭐⭐⭐",
+      value: "3",
+      checked: this.book.rating === "3" ? true : false
+    });
+    alert.addInput({
+      type: "radio",
+      label: "⭐⭐⭐⭐",
+      value: "4",
+      checked: this.book.rating === "4" ? true : false
+    });
+    alert.addInput({
+      type: "radio",
+      label: "⭐⭐⭐⭐⭐",
+      value: "5",
+      checked: this.book.rating === "5" ? true : false
+    });
+
+    alert.addButton("Cancel");
+    alert.addButton({
+      text: "OK",
+      handler: data => {
+        this.book.rating = data;
+        console.log("new rating: " + data);
+      }
+    });
+    alert.present();
   }
 
   // Delete the selected book. Prompts user before deleting
@@ -148,9 +191,19 @@ export class DetailsPage {
           handler: () => {
             if (this.editNotAdd) {
               this.bookListCol.doc(this.book.id).delete();
+              firebase
+                .storage()
+                .refFromURL(this.book.photoURL)
+                .delete();
             } else {
               this.book.author = "";
               this.book.title = "";
+              if (this.book.photoURL !== "") {
+                firebase
+                  .storage()
+                  .refFromURL(this.book.photoURL)
+                  .delete();
+              }
             }
             this.navCtrl.pop();
           }
@@ -185,6 +238,13 @@ export class DetailsPage {
       .putString(this.myPhoto, "base64", { contentType: "image/jpeg" })
       .then(() => {
         imageRef.getDownloadURL().then(url => {
+          // Delete old photo from library if it already exists
+          if (this.book.photoURL !== "") {
+            firebase
+              .storage()
+              .refFromURL(this.book.photoURL)
+              .delete();
+          }
           this.book.photoURL = url;
           this.imgProvided = true;
           this.restrictSave = false;
