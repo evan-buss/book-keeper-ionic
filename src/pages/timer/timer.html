@@ -4,9 +4,8 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item>
-      <!-- *ngIf="timerReady" -->
-      <ion-card>
+    <ion-item *ngIf="timerReady">
+      <ion-card class="cardPlaceholder">
         <ion-card-header>
           <button
             ion-button
@@ -14,7 +13,7 @@
             large
             block
             clear
-            class="timer-button x-large"
+            class="timer-button timer-text x-large"
           >
             {{ timer.displayTime }}
           </button>
@@ -27,7 +26,7 @@
             clear
             class="timer-button"
           >
-            Enter a time
+            Set a Time
           </button>
         </ion-card-header>
         <ion-item *ngIf="timeInSeconds && timeInSeconds > 0">
@@ -83,18 +82,20 @@
       </ion-card>
     </ion-item>
     <ion-item>
-      <ion-label>Reading Time: </ion-label>
+      <ion-label>Reading Time (Minutes): </ion-label>
       <ion-input
         name="timeInSeconds"
-        [(ngModel)]="timeInSeconds"
+        [(ngModel)]="timeInMinutes"
         type="number"
-        value=""
+        min="1"
+        max="120"
+        value="1"
       ></ion-input>
     </ion-item>
-    <button margin-top ion-button block (click)="timerReady = true">
-      Start
+    <button margin-top ion-button block (click)="handleStartButton()">
+      Set Time
     </button>
-    <button margin-top block (click)="showModal()" ion-button>
+    <button margin-top block outline (click)="showModal()" ion-button>
       Reminder Settings
     </button>
   </ion-list>

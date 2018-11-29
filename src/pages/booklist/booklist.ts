@@ -1,5 +1,5 @@
 import { Component, ViewChild } from "@angular/core";
-import { NavController } from "ionic-angular";
+import { NavController, ToastController } from "ionic-angular";
 import { ListPage } from "../list/list";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { Observable } from "rxjs-compat";
@@ -19,14 +19,16 @@ export class BookListPage {
   listName: String;
   inputVisible: boolean = false;
 
-  constructor(public navCtrl: NavController, db: AngularFirestore) {
+  constructor(
+    public navCtrl: NavController,
+    public toastCtrl: ToastController,
+    public db: AngularFirestore
+  ) {
     this.fireStore = db;
     this.lists = db.collection<any>("book-lists").valueChanges();
   }
 
   deleteList(name) {
-    console.log("deleting list");
-
     // Delete the document disk
     firebase
       .firestore()
@@ -51,6 +53,14 @@ export class BookListPage {
           }
         }
       });
+
+    let toast = this.toastCtrl.create({
+      message: "Book-list Successfully Deleted!",
+      duration: 2000,
+      position: "top"
+    });
+
+    toast.present();
   }
 
   createList(event) {

@@ -220,10 +220,13 @@ export class DetailsPage {
   takePicture() {
     const options: CameraOptions = {
       quality: 100,
+      targetHeight: 800,
+      targetWidth: 800,
       destinationType: this.camera.DestinationType.DATA_URL,
       sourceType: this.camera.PictureSourceType.CAMERA,
       mediaType: this.camera.MediaType.PICTURE,
       encodingType: this.camera.EncodingType.JPEG,
+      allowEdit: true,
       saveToPhotoAlbum: true
     };
     this.camera
@@ -246,7 +249,7 @@ export class DetailsPage {
         imageRef.getDownloadURL().then(url => {
           // Delete old photo from library if it already exists
           if (this.book.photoURL !== "") {
-            // this.imgProvided = false;
+            this.imgProvided = false;
             let oldURL = this.book.photoURL;
             this.book.photoURL = "";
             firebase
@@ -255,7 +258,7 @@ export class DetailsPage {
               .delete();
           }
           this.book.photoURL = url;
-          // this.imgProvided = true;
+          this.imgProvided = true;
           this.imageUploading = false;
         });
       });

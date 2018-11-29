@@ -1,26 +1,26 @@
 
 Book Keeper:
   Lists:
-    ☐ Show a toast when user deletes a book list
     ☐ Allow users to switch lists under the details. @today @critical
-      - Right now it shows nothing and then the content pops downwards once it loads...
-    ☐ Try to downscale image to an 800x800 photo @low
+    ✔ Try to downscale image to an 800x800 photo @low @done(18-11-29 00:22)
       - May have to use canEdit feature or the height and width options of camera
-  About Page:
-    ☐ Make the features and purpose information look nicer than it does now.
   Timer:
-    ☐ Timer page so users can set a specific time to read @high
       ☐ Timer push notifications / alerts / sounds.
     ☐ Push notifications when the reminder occurs @high
   General:
     ☐ Change up header colors to make it look more colorful @low
+    ☐ Add icon for app
   Fixes:
-    ☐ SWIPE NOT WORKING ON DEVICE @low
+    ✔ SWIPE NOT WORKING ON DEVICE @low @done(18-11-29 00:26)
+    ✔ After take a new picture, the form is pushed down for some reason. HTML not being removed under certain condition? @high @done(18-11-29 00:27)
 
 Archive:
+  ✔ Show a toast when user deletes a book list @done(18-11-28 23:36) @project(Book Keeper.Lists)
+  ✔ Make the features and purpose information look nicer than it does now. @done(18-11-28 23:36) @project(Book Keeper.About Page)
+  ✔ Timer page so users can set a specific time to read @high @done(18-11-29 00:03) @project(Book Keeper.Timer)
   ✔ Need a way for users to delete lists slidable? @done(18-11-28 17:22) @project(Book Keeper.Lists)
   ✘ Figure out how to get loading spinner to work when uploading a new photo over an existing image @today @high @cancelled(18-11-28 13:09) @project(Book Keeper.Lists)
-  ✘ If user uploads photo when creating new book, make sure to delete if they go back @cancelled(18-11-28 13:11) @project(Book Keeper.Lists)
+  ✘ If user uploads photo when creating new book, make sure to delete if they go back @project(Book Keeper.Lists) @cancelled(18-11-29 00:15)
     Fixed by removing the back button so that they have to cancel.
   ✔ Settings page where user can set when they want a reading reminder @high @done(18-11-28 16:21) @project(Book Keeper.Timer)
   ✔ only import the firebase modules that I'm useing @low @done(18-11-28 17:22) @project(Book Keeper.General)

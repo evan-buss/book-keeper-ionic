@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component } from "@angular/core";
 import {
   IonicPage,
   NavController,
@@ -6,6 +6,7 @@ import {
   ModalController,
   NavParams
 } from "ionic-angular";
+import { Push, PushObject, PushOptions } from "@ionic-native/push";
 import * as firebase from "firebase/app";
 import "firebase/firestore";
 import { ModalContentPage } from "../modal-content/modal-content";
@@ -25,7 +26,8 @@ export interface CountdownTimer {
   templateUrl: "timer.html"
 })
 export class TimerPage {
-  @Input() timeInSeconds: number;
+  timeInSeconds: number;
+  timeInMinutes: number;
   timer: CountdownTimer;
   timerReady: boolean = false;
   reminderDays: Object;
@@ -35,8 +37,17 @@ export class TimerPage {
     public navCtrl: NavController,
     public toastCtrl: ToastController,
     public modalCtrl: ModalController,
+    private push: Push,
     public navParams: NavParams
   ) {
+    this.push.hasPermission().then((res: any) => {
+      if (res.isEnabled) {
+        console.log("We have permission to send push notifications");
+      } else {
+        console.log("We do not have permission to send push notifications");
+      }
+    });
+
     firebase
       .firestore()
       .collection("reminders")
@@ -88,7 +99,15 @@ export class TimerPage {
     toast.present();
   }
 
+  handleStartButton() {
+    this.timeInSeconds = this.timeInMinutes * 60;
+    this.timerReady = true;
+    this.initTimer();
+  }
+
   ngOnInit() {
+    this.timeInSeconds = this.timeInMinutes * 60;
+    this.timerReady = true;
     this.initTimer();
   }
 
@@ -146,6 +165,7 @@ export class TimerPage {
         this.timerTick();
       } else {
         this.timer.hasFinished = true;
+        // TODO: Send notification here?
       }
     }, 1000);
   }
