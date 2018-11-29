@@ -2,19 +2,24 @@
 Book Keeper:
   Lists:
     ☐ Allow users to switch lists under the details. @today @critical
-    ✔ Try to downscale image to an 800x800 photo @low @done(18-11-29 00:22)
-      - May have to use canEdit feature or the height and width options of camera
   Timer:
-      ☐ Timer push notifications / alerts / sounds.
-    ☐ Push notifications when the reminder occurs @high
+    ☐ Local notifications when the reminder occurs @high @today
+      ☐ vibrate / play sound / show notification
+    ☐ Local notification when the timer is finished
+      ☐ Add an app icon to the notication @high
   General:
+    ☐ disable landscape mode
     ☐ Change up header colors to make it look more colorful @low
-    ☐ Add icon for app
-  Fixes:
-    ✔ SWIPE NOT WORKING ON DEVICE @low @done(18-11-29 00:26)
-    ✔ After take a new picture, the form is pushed down for some reason. HTML not being removed under certain condition? @high @done(18-11-29 00:27)
+    ☐ Add icon for app @high
+      ✔ Android @done(18-11-29 12:42)
+      ☐ iOS (needs to be 1024)
+    ☐ Look into a custom splash screen
+    ☐ Change about page from push notifications to local notifications
 
 Archive:
+  ✔ Try to downscale image to an 800x800 photo @low @done(18-11-29 00:22) @project(Book Keeper.Lists)
+  ✔ SWIPE NOT WORKING ON DEVICE @low @done(18-11-29 00:26) @project(Book Keeper.Fixes)
+  ✔ After take a new picture, the form is pushed down for some reason. HTML not being removed under certain condition? @high @done(18-11-29 00:27) @project(Book Keeper.Fixes)
   ✔ Show a toast when user deletes a book list @done(18-11-28 23:36) @project(Book Keeper.Lists)
   ✔ Make the features and purpose information look nicer than it does now. @done(18-11-28 23:36) @project(Book Keeper.About Page)
   ✔ Timer page so users can set a specific time to read @high @done(18-11-29 00:03) @project(Book Keeper.Timer)

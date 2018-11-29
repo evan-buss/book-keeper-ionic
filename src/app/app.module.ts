@@ -21,7 +21,7 @@ import { ModalContentPage } from "../pages/modal-content/modal-content";
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { Camera } from "@ionic-native/camera";
-import { Push } from "@ionic-native/push";
+import { LocalNotifications } from "@ionic-native/local-notifications";
 
 export const firebaseConfig = {
   apiKey: "AIzaSyBeO_sQclab8IK0JR6zGWztrz3fRnfj9Iw",
@@ -66,7 +66,7 @@ export const firebaseConfig = {
     StatusBar,
     SplashScreen,
     Camera,
-    Push,
+    LocalNotifications,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

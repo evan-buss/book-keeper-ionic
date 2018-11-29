@@ -6,7 +6,7 @@ import {
   ModalController,
   NavParams
 } from "ionic-angular";
-import { Push, PushObject, PushOptions } from "@ionic-native/push";
+import { LocalNotifications } from "@ionic-native/local-notifications";
 import * as firebase from "firebase/app";
 import "firebase/firestore";
 import { ModalContentPage } from "../modal-content/modal-content";
@@ -37,17 +37,16 @@ export class TimerPage {
     public navCtrl: NavController,
     public toastCtrl: ToastController,
     public modalCtrl: ModalController,
-    private push: Push,
+    private local: LocalNotifications,
     public navParams: NavParams
   ) {
-    this.push.hasPermission().then((res: any) => {
-      if (res.isEnabled) {
-        console.log("We have permission to send push notifications");
+    this.local.requestPermission().then(granted => {
+      if (granted) {
+        console.log("Local notif permission granted");
       } else {
-        console.log("We do not have permission to send push notifications");
+        console.log("no notif permissions");
       }
     });
-
     firebase
       .firestore()
       .collection("reminders")
@@ -165,7 +164,12 @@ export class TimerPage {
         this.timerTick();
       } else {
         this.timer.hasFinished = true;
-        // TODO: Send notification here?
+
+        this.local.schedule({
+          title: "Reading timer finished!",
+          text: "Great job!",
+          vibrate: true
+        });
       }
     }, 1000);
   }
