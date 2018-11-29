@@ -80,7 +80,7 @@ export class TimerPage {
       });
 
     let toast = this.toastCtrl.create({
-      message: "Reminder time and days saved!",
+      message: "Reminder updated!",
       duration: 2000,
       position: "top"
     });
@@ -92,10 +92,10 @@ export class TimerPage {
     this.initTimer();
   }
 
-  handleChange(event) {
-    this.timeInSeconds = event.value;
-    this.timerReady = true;
-  }
+  // handleChange(event) {
+  //   this.timeInSeconds = event.value;
+  //   this.timerReady = true;
+  // }
 
   hasFinished() {
     return this.timer.hasFinished;

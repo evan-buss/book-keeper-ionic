@@ -1,33 +1,35 @@
 
 Book Keeper:
   Lists:
-    ☐ Need a way for users to delete lists slidable?
+    ☐ Show a toast when user deletes a book list
     ☐ Allow users to switch lists under the details. @today @critical
-    ✘ Figure out how to get loading spinner to work when uploading a new photo over an existing image @today @high @cancelled(18-11-28 13:09)
       - Right now it shows nothing and then the content pops downwards once it loads...
     ☐ Try to downscale image to an 800x800 photo @low
       - May have to use canEdit feature or the height and width options of camera
-    ✘ If user uploads photo when creating new book, make sure to delete if they go back @cancelled(18-11-28 13:11)
-      Fixed by removing the back button so that they have to cancel.
-
+  About Page:
+    ☐ Make the features and purpose information look nicer than it does now.
   Timer:
-    ✔ Settings page where user can set when they want a reading reminder @high @done(18-11-28 16:21)
     ☐ Timer page so users can set a specific time to read @high
       ☐ Timer push notifications / alerts / sounds.
     ☐ Push notifications when the reminder occurs @high
   General:
-    ☐ only import the firebase modules that I'm useing @low
-    ✔ fix home screen margins: center the information vertically @done(18-11-28 11:10)
-    ✘ Add dark load screen instead of light one @cancelled(18-11-28 11:11)
-    ✔ _rename_ restrictSaving to imageUploading because that is the only thing that triggers it now @done(18-11-28 11:27)
     ☐ Change up header colors to make it look more colorful @low
   Fixes:
     ☐ SWIPE NOT WORKING ON DEVICE @low
 
-Archived:
-  ✔ delete storage image by URL when they delete the book item @done(18-11-28 00:57)
-  ✔ ion-note for greyed out info text? @done(18-11-28 00:57)
-  ✔ ion-spinner for when image is uploading? @done(18-11-28 00:58)
-  ✔ add ratings for books @done(18-11-28 00:58)
-  ✔ Figure out a solution to wierd looking stretched photos @done(18-11-28 00:58)
-  ✔ Figure out best way to display photos without them looking wonky. @done(18-11-28 00:58)
+Archive:
+  ✔ Need a way for users to delete lists slidable? @done(18-11-28 17:22) @project(Book Keeper.Lists)
+  ✘ Figure out how to get loading spinner to work when uploading a new photo over an existing image @today @high @cancelled(18-11-28 13:09) @project(Book Keeper.Lists)
+  ✘ If user uploads photo when creating new book, make sure to delete if they go back @cancelled(18-11-28 13:11) @project(Book Keeper.Lists)
+    Fixed by removing the back button so that they have to cancel.
+  ✔ Settings page where user can set when they want a reading reminder @high @done(18-11-28 16:21) @project(Book Keeper.Timer)
+  ✔ only import the firebase modules that I'm useing @low @done(18-11-28 17:22) @project(Book Keeper.General)
+  ✔ fix home screen margins: center the information vertically @done(18-11-28 11:10) @project(Book Keeper.General)
+  ✘ Add dark load screen instead of light one @cancelled(18-11-28 11:11) @project(Book Keeper.General)
+  ✔ _rename_ restrictSaving to imageUploading because that is the only thing that triggers it now @done(18-11-28 11:27) @project(Book Keeper.General)
+  ✔ delete storage image by URL when they delete the book item @done(18-11-28 00:57) @project(Archived)
+  ✔ ion-note for greyed out info text? @done(18-11-28 00:57) @project(Archived)
+  ✔ ion-spinner for when image is uploading? @done(18-11-28 00:58) @project(Archived)
+  ✔ add ratings for books @done(18-11-28 00:58) @project(Archived)
+  ✔ Figure out a solution to wierd looking stretched photos @done(18-11-28 00:58) @project(Archived)
+  ✔ Figure out best way to display photos without them looking wonky. @done(18-11-28 00:58) @project(Archived)
