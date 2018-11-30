@@ -10,6 +10,7 @@ import { LocalNotifications } from "@ionic-native/local-notifications";
 import * as firebase from "firebase/app";
 import "firebase/firestore";
 import { ModalContentPage } from "../modal-content/modal-content";
+import * as moment from "moment";
 
 export interface CountdownTimer {
   seconds: number;
@@ -30,8 +31,8 @@ export class TimerPage {
   timeInMinutes: number;
   timer: CountdownTimer;
   timerReady: boolean = false;
-  reminderDays: Object;
-  reminderTime: Date;
+  reminderDays: boolean[] = [false, false, false, false, false, false, false];
+  reminderTime: string;
 
   constructor(
     public navCtrl: NavController,
@@ -40,6 +41,8 @@ export class TimerPage {
     private local: LocalNotifications,
     public navParams: NavParams
   ) {
+    console.log(moment().format("LLLL"));
+
     this.local.requestPermission().then(granted => {
       if (granted) {
         console.log("Local notif permission granted");
@@ -47,6 +50,7 @@ export class TimerPage {
         console.log("no notif permissions");
       }
     });
+
     firebase
       .firestore()
       .collection("reminders")
@@ -55,6 +59,9 @@ export class TimerPage {
       .then(doc => {
         if (doc.exists) {
           this.reminderDays = doc.data().reminderDays;
+          console.log("Firebase reminderDays: ");
+          console.log(this.reminderDays);
+
           this.reminderTime = doc.data().reminderTime;
         }
       });
@@ -89,13 +96,61 @@ export class TimerPage {
         reminderTime: this.reminderTime
       });
 
+    // Show toast that the reminder details where saved
     let toast = this.toastCtrl.create({
       message: "Reminder updated!",
       duration: 2000,
       position: "top"
     });
-
     toast.present();
+
+    let time = this.reminderTime.split(":");
+    let hour = +time[0];
+    let minutes = +time[1];
+    console.log("Hour: ", hour, "Minutes: ", minutes);
+
+    this.reminderDays.forEach((value, index) => {
+      if (value === true) {
+        let dayNeeded = index + 1;
+        let today = moment().isoWeekday();
+        let notifDate;
+        if (today <= dayNeeded) {
+          notifDate = moment()
+            .isoWeekday(dayNeeded)
+            .hours(hour)
+            .minutes(minutes)
+            .seconds(0)
+            .toDate();
+        } else {
+          notifDate = moment()
+            .add(1, "weeks")
+            .isoWeekday(dayNeeded)
+            .hours(hour)
+            .minutes(minutes)
+            .seconds(0)
+            .toDate();
+        }
+        console.log("notification set for: ", notifDate);
+        this.local.schedule({
+          id: dayNeeded,
+          title: "Scheduled Reading Reminder",
+          text: "Time to read!",
+          foreground: true,
+          led: "1ABC9C",
+          vibrate: true,
+          trigger: { at: notifDate }
+        });
+      }
+    });
+
+    // this.local.schedule({
+    //   title: "Scheduled Reading Time Reminder",
+    //   text: "Scheduled at " + this.reminderTime.getTime.toString(),
+    //   trigger: { at: new Date(new Date().getTime() + 3600) }
+    // });
+    // let mondayDate = moment().day(1 + 7);
+
+    // Register the notifications to show on set dates and times
   }
 
   handleStartButton() {

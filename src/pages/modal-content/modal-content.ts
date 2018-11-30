@@ -12,15 +12,17 @@ import {
 })
 export class ModalContentPage {
   reminderTime: Date;
-  reminderDays: Object = {
-    monday: false,
-    tuesday: false,
-    wednesday: false,
-    thursday: false,
-    friday: false,
-    saturday: false,
-    sunday: false
-  };
+  // reminderDays: Object = {
+  //   monday: false,
+  //   tuesday: false,
+  //   wednesday: false,
+  //   thursday: false,
+  //   friday: false,
+  //   saturday: false,
+  //   sunday: false
+  // };
+  // reminderDays: boolean[] = [false, false, false, false, false, false, false];
+  reminderDays: boolean[];
 
   constructor(
     public navCtrl: NavController,
@@ -36,9 +38,5 @@ export class ModalContentPage {
       reminderDays: this.reminderDays,
       reminderTime: this.reminderTime
     });
-  }
-
-  ionViewDidLoad() {
-    console.log("ionViewDidLoad ModalContentPage");
   }
 }

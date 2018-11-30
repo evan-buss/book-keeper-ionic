@@ -2,21 +2,23 @@
 Book Keeper:
   Lists:
     ☐ Allow users to switch lists under the details. @today @critical
-  Timer:
-    ☐ Local notifications when the reminder occurs @high @today
-      ☐ vibrate / play sound / show notification
-    ☐ Local notification when the timer is finished
-      ☐ Add an app icon to the notication @high
   General:
-    ☐ disable landscape mode
+  Maybes:
+    ☐ Allow user to slide on an item to delete instead of going into details.
     ☐ Change up header colors to make it look more colorful @low
-    ☐ Add icon for app @high
-      ✔ Android @done(18-11-29 12:42)
-      ☐ iOS (needs to be 1024)
-    ☐ Look into a custom splash screen
-    ☐ Change about page from push notifications to local notifications
+    ✘ Look into a custom splash screen @cancelled(18-11-30 13:01)
 
 Archive:
+  ✔ Local notifications when the reminder occurs @high @today @done(18-11-30 12:32) @project(Book Keeper.Timer)
+  ✔ Mess with notification settings @done(18-11-30 13:01) @project(Book Keeper.Timer)
+  ✔ vibrate / play sound / show notification @done(18-11-30 13:01) @project(Book Keeper.Timer)
+  ✔ Local notification when the timer is finished @done(18-11-30 12:32) @project(Book Keeper.Timer)
+  ✔ Add an app icon to the notication @high @done(18-11-30 13:01) @project(Book Keeper.Timer)
+  ✔ disable landscape mode @done(18-11-30 00:54) @project(Book Keeper.General)
+  ✔ Add icon for app @high @done(18-11-30 00:54) @project(Book Keeper.General)
+  ✔ Android @done(18-11-29 12:42) @project(Book Keeper.General)
+  ✔ iOS (needs to be 1024) @done(18-11-30 00:54) @project(Book Keeper.General)
+  ✔ Change about page from push notifications to local notifications @done(18-11-30 00:55) @project(Book Keeper.General)
   ✔ Try to downscale image to an 800x800 photo @low @done(18-11-29 00:22) @project(Book Keeper.Lists)
   ✔ SWIPE NOT WORKING ON DEVICE @low @done(18-11-29 00:26) @project(Book Keeper.Fixes)
   ✔ After take a new picture, the form is pushed down for some reason. HTML not being removed under certain condition? @high @done(18-11-29 00:27) @project(Book Keeper.Fixes)
