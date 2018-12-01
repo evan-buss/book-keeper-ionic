@@ -114,8 +114,53 @@ export class DetailsPage {
     });
   }
 
+  incrementCount(list) {
+    // Get the current bookCount for the list
+    firebase
+      .firestore()
+      .collection("book-lists")
+      .doc(list)
+      .get()
+      .then(doc => {
+        if (doc.exists) {
+          return doc.data().bookCount;
+        }
+      })
+      .then(count => {
+        // Increment the current bookCount for the list
+        firebase
+          .firestore()
+          .collection("book-lists")
+          .doc(list)
+          .update({ bookCount: count + 1 });
+      });
+  }
+
+  decrementCount(list) {
+    // Get the current bookCount for the list
+    firebase
+      .firestore()
+      .collection("book-lists")
+      .doc(list)
+      .get()
+      .then(doc => {
+        if (doc.exists) {
+          return doc.data().bookCount;
+        }
+      })
+      .then(count => {
+        // Decrement the current bookCount for the list
+        firebase
+          .firestore()
+          .collection("book-lists")
+          .doc(list)
+          .update({ bookCount: count - 1 });
+      });
+  }
+
   // Used to add a new book with all new information
   addBook() {
+    this.incrementCount(this.listName);
     this.bookListCol.doc(this.book.title).set({
       title: this.book.title,
       author: this.book.author,
@@ -172,10 +217,6 @@ export class DetailsPage {
               .doc(this.book.title)
               .get()
               .then(object => {
-                // console.log("OBJECT: ");
-                // console.log(object.data());
-                // console.log(this.book.title);
-                // console.log(this.listName);
                 // Create a new document with the data in the new list
                 firebase
                   .firestore()
@@ -184,6 +225,8 @@ export class DetailsPage {
                   .collection("books")
                   .doc(object.data().title)
                   .set(object.data());
+
+                this.incrementCount(newList);
                 // .then(() => {});
               })
               .then(() => {
@@ -194,6 +237,7 @@ export class DetailsPage {
                   .collection("books")
                   .doc(this.book.title)
                   .delete();
+                this.decrementCount(this.listName);
               });
             this.navCtrl.pop();
           }
@@ -271,6 +315,7 @@ export class DetailsPage {
           handler: () => {
             if (this.editNotAdd) {
               this.bookListCol.doc(this.book.id).delete();
+              this.decrementCount(this.listName);
               firebase
                 .storage()
                 .refFromURL(this.book.photoURL)

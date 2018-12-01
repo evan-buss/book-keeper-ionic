@@ -18,6 +18,7 @@ export class BookListPage {
   bookListCollection: any;
   listName: String;
   inputVisible: boolean = false;
+  listCounts: number[];
 
   constructor(
     public navCtrl: NavController,
@@ -74,7 +75,7 @@ export class BookListPage {
 
       this.bookListCollection.doc(this.listName).set({
         name: this.listName,
-        lastModified: new Date().toLocaleDateString()
+        bookCount: 0
       });
       this.listName = "";
       this.inputVisible = false;

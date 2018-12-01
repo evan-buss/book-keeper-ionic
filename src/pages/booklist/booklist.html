@@ -6,14 +6,15 @@
   <ion-list>
     <ion-item-divider color="light">
       <div item-left>Lists</div>
-      <div item-right>Last Updated</div>
+      <div item-right>Book Count</div>
     </ion-item-divider>
     <ion-item-group>
       <ion-item-sliding *ngFor="let list of (lists | async)">
         <button ion-item (click)="itemTapped($event, list)">
           <ion-icon name="book" item-start></ion-icon>
           {{ list.name }}
-          <div item-right padding>{{ list.lastModified }}</div>
+          <ion-badge item-end padding>{{ list.bookCount }}</ion-badge>
+          <!-- <div item-right padding>{{ list.bookCount }}</div> -->
         </button>
         <ion-item-options side="right">
           <button (click)="deleteList(list.name)" ion-button color="danger">

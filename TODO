@@ -1,9 +1,11 @@
 
 Book Keeper:
-  Maybes:
-    ☐ Change up header colors to make it look more colorful @low
+  Not Necessary But Nice To Have:
+    ☐ Indicator that says how many books each list contains.
+    ✔ Update the last updated time indicator to actually work @done(18-12-01 13:58)
 
 Archive:
+  ✔ Change up header colors to make it look more colorful @low @done(18-12-01 13:17) @project(Book Keeper.Maybes)
   ✔ Allow users to switch lists under the details. @today @critical @30m @started(18-11-30 22:23) @done(18-12-01 12:53) @lasted(14h30m24s) @project(Book Keeper.Lists)
   ✘ Allow user to slide on an item to delete instead of going into details. @cancelled(18-11-30 20:22) @project(Book Keeper.Maybes)
   ✘ Look into a custom splash screen @cancelled(18-11-30 13:01) @project(Book Keeper.Maybes)
