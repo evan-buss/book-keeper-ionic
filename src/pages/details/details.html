@@ -2,6 +2,9 @@
   <ion-navbar hideBackButton="true">
     <ion-title>{{ navTitle }}</ion-title>
     <ion-buttons end>
+      <button (click)="changeList()" ion-button icon-only>
+        <ion-icon name="list"> </ion-icon>
+      </button>
       <button (click)="rateBook()" color="rating" ion-button icon-only>
         <ion-icon name="star"> </ion-icon>
       </button>

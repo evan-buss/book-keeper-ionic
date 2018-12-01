@@ -125,6 +125,85 @@ export class DetailsPage {
     });
   }
 
+  changeList() {
+    let readingLists = [];
+    let alert = this.alertCtrl.create();
+    alert.setTitle("Move book to another list");
+
+    firebase
+      .firestore()
+      .collection("book-lists")
+      .get()
+      .then(doc => {
+        return doc.docs;
+      })
+      .then(documents => {
+        readingLists = documents.map(list => {
+          return list.id;
+        });
+        // console.log("documents" + documents);
+        // console.log("readingLists" + readingLists);
+        // console.log("length: " + readingLists.length);
+
+        if (readingLists.length > 1) {
+          alert.setSubTitle("Select a list");
+          for (let i = 0; i < readingLists.length; i++) {
+            alert.addInput({
+              id: (i + 1).toString(),
+              type: "radio",
+              label: readingLists[i],
+              value: readingLists[i],
+              checked: readingLists[i] === this.listName ? true : false
+            });
+          }
+        } else {
+          alert.setSubTitle("No other booklists other than " + this.listName);
+        }
+        alert.addButton("Cancel");
+        alert.addButton({
+          text: "OK",
+          handler: newList => {
+            // Copy the data from the existing item
+            firebase
+              .firestore()
+              .collection("book-lists")
+              .doc(this.listName)
+              .collection("books")
+              .doc(this.book.title)
+              .get()
+              .then(object => {
+                // console.log("OBJECT: ");
+                // console.log(object.data());
+                // console.log(this.book.title);
+                // console.log(this.listName);
+                // Create a new document with the data in the new list
+                firebase
+                  .firestore()
+                  .collection("book-lists")
+                  .doc(newList)
+                  .collection("books")
+                  .doc(object.data().title)
+                  .set(object.data());
+                // .then(() => {});
+              })
+              .then(() => {
+                firebase
+                  .firestore()
+                  .collection("book-lists")
+                  .doc(this.listName)
+                  .collection("books")
+                  .doc(this.book.title)
+                  .delete();
+              });
+            this.navCtrl.pop();
+          }
+        });
+      })
+      .then(() => {
+        alert.present();
+      });
+  }
+
   rateBook(event) {
     let alert = this.alertCtrl.create();
     alert.setTitle("Book Rating");
@@ -165,7 +244,7 @@ export class DetailsPage {
       text: "OK",
       handler: data => {
         this.book.rating = data;
-        console.log("new rating: " + data);
+        // console.log("new rating: " + data);
       }
     });
     alert.present();
@@ -184,7 +263,7 @@ export class DetailsPage {
         {
           text: "No",
           handler: () => {
-            console.log("Delete cancelled");
+            // console.log("Delete cancelled");
           }
         },
         {
@@ -236,7 +315,7 @@ export class DetailsPage {
         this.uploadPhoto();
       })
       .catch(error => {
-        console.log("Error taking picture: ", error);
+        // console.log("Error taking picture: ", error);
       });
   }
 

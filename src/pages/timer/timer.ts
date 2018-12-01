@@ -41,14 +41,12 @@ export class TimerPage {
     private local: LocalNotifications,
     public navParams: NavParams
   ) {
-    console.log(moment().format("LLLL"));
-
     this.local.requestPermission().then(granted => {
-      if (granted) {
-        console.log("Local notif permission granted");
-      } else {
-        console.log("no notif permissions");
-      }
+      // if (granted) {
+      //   console.log("Local notif permission granted");
+      // } else {
+      //   console.log("no notif permissions");
+      // }
     });
 
     firebase
@@ -59,9 +57,6 @@ export class TimerPage {
       .then(doc => {
         if (doc.exists) {
           this.reminderDays = doc.data().reminderDays;
-          console.log("Firebase reminderDays: ");
-          console.log(this.reminderDays);
-
           this.reminderTime = doc.data().reminderTime;
         }
       });
@@ -107,7 +102,6 @@ export class TimerPage {
     let time = this.reminderTime.split(":");
     let hour = +time[0];
     let minutes = +time[1];
-    console.log("Hour: ", hour, "Minutes: ", minutes);
 
     this.reminderDays.forEach((value, index) => {
       if (value === true) {
@@ -130,27 +124,18 @@ export class TimerPage {
             .seconds(0)
             .toDate();
         }
-        console.log("notification set for: ", notifDate);
+        // console.log("notification set for: ", notifDate);
         this.local.schedule({
           id: dayNeeded,
-          title: "Scheduled Reading Reminder",
-          text: "Time to read!",
-          foreground: true,
+          title: "Time to Read!",
+          text: "Reading Reminder Scheduled for " + this.reminderTime,
+          lockscreen: true,
           led: "1ABC9C",
           vibrate: true,
           trigger: { at: notifDate }
         });
       }
     });
-
-    // this.local.schedule({
-    //   title: "Scheduled Reading Time Reminder",
-    //   text: "Scheduled at " + this.reminderTime.getTime.toString(),
-    //   trigger: { at: new Date(new Date().getTime() + 3600) }
-    // });
-    // let mondayDate = moment().day(1 + 7);
-
-    // Register the notifications to show on set dates and times
   }
 
   handleStartButton() {
@@ -164,11 +149,6 @@ export class TimerPage {
     this.timerReady = true;
     this.initTimer();
   }
-
-  // handleChange(event) {
-  //   this.timeInSeconds = event.value;
-  //   this.timerReady = true;
-  // }
 
   hasFinished() {
     return this.timer.hasFinished;
@@ -222,8 +202,10 @@ export class TimerPage {
 
         this.local.schedule({
           title: "Reading timer finished!",
-          text: "Great job!",
-          vibrate: true
+          text: "You read for " + this.timeInMinutes,
+          vibrate: true,
+          lockscreen: true,
+          led: "1ABC9C"
         });
       }
     }, 1000);
