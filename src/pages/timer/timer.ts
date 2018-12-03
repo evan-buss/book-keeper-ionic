@@ -128,7 +128,7 @@ export class TimerPage {
         this.local.schedule({
           id: dayNeeded,
           title: "Time to Read!",
-          text: "Reading Reminder Scheduled for " + this.reminderTime,
+          text: "It is your scheduled reading time!",
           lockscreen: true,
           led: "1ABC9C",
           vibrate: true,
@@ -202,7 +202,10 @@ export class TimerPage {
 
         this.local.schedule({
           title: "Reading timer finished!",
-          text: "You read for " + this.timeInMinutes,
+          text:
+            "You read for " +
+            this.timeInMinutes +
+            (this.timeInMinutes > 1 ? " minutes!" : " minute!"),
           vibrate: true,
           lockscreen: true,
           led: "1ABC9C"
