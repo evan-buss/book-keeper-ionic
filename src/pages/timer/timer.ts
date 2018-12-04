@@ -43,9 +43,9 @@ export class TimerPage {
   ) {
     this.local.requestPermission().then(granted => {
       // if (granted) {
-      //   console.log("Local notif permission granted");
+      //   console.log("Notification permission granted");
       // } else {
-      //   console.log("no notif permissions");
+      //   console.log("Notification permission denied");
       // }
     });
 
@@ -124,7 +124,6 @@ export class TimerPage {
             .seconds(0)
             .toDate();
         }
-        // console.log("notification set for: ", notifDate);
         this.local.schedule({
           id: dayNeeded,
           title: "Time to Read!",
