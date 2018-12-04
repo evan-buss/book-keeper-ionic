@@ -1,11 +1,6 @@
 import { Component } from "@angular/core";
-import {
-  IonicPage,
-  NavController,
-  ViewController,
-  NavParams
-} from "ionic-angular";
-@IonicPage()
+import { NavController, ViewController, NavParams } from "ionic-angular";
+// @IonicPage()
 @Component({
   selector: "page-modal-content",
   templateUrl: "modal-content.html"

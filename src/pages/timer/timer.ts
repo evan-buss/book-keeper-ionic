@@ -1,6 +1,5 @@
 import { Component } from "@angular/core";
 import {
-  IonicPage,
   NavController,
   ToastController,
   ModalController,
@@ -21,7 +20,7 @@ export interface CountdownTimer {
   displayTime: string;
 }
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: "page-timer",
   templateUrl: "timer.html"

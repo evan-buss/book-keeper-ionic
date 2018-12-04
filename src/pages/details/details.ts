@@ -1,5 +1,5 @@
 import { Component, ViewChild } from "@angular/core";
-import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { NavController, NavParams } from "ionic-angular";
 import {
   AngularFirestore,
   AngularFirestoreCollection
@@ -11,7 +11,7 @@ import { v4 as uuid } from "uuid";
 import * as firebase from "firebase/app";
 import "firebase/storage";
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: "page-details",
   templateUrl: "details.html"

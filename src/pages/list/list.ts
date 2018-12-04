@@ -1,11 +1,11 @@
 import { Component } from "@angular/core";
-import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { NavController, NavParams } from "ionic-angular";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { Observable } from "rxjs-compat";
 
 import { DetailsPage } from "../details/details";
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: "page-list",
   templateUrl: "list.html"
